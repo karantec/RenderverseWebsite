@@ -5,4 +5,41 @@
 
 body {
     @apply bg-black text-white;
+  
   }
+  .starry-bg {
+    background-color: black;
+    position: relative;
+    width: 100%;
+    height: 200px; /* Adjust height as needed */
+    overflow: hidden;
+  }
+  
+  .starry-bg::before,
+  .starry-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(2px at center, white, transparent 20%) repeat;
+    background-size: 50px 50px; /* Adjust for star density */
+    animation: twinkling 10s infinite alternate;
+    opacity: 0.5;
+  }
+  
+  .starry-bg::after {
+    animation-delay: 5s;
+    opacity: 0.3;
+  }
+  
+  @keyframes twinkling {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(-50px, -50px);
+    }
+  }
+  
