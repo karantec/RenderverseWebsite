@@ -31,7 +31,7 @@ const ContactForm = () => {
             <input
               type="text"
               placeholder="Your name"
-              className="w-full p-4 bg-transparent border border-gray-800 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-gray-600"
+              className="w-full p-4 bg-transparent border border-gray-800 rounded-full text-white  focus:outline-none focus:border-gray-600"
             />
           </div>
           
@@ -39,19 +39,19 @@ const ContactForm = () => {
             <input
               type="email"
               placeholder="E-mail"
-              className="w-full p-4 bg-transparent border border-gray-800 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-gray-600"
+              className="w-full p-4 bg-transparent border border-gray-800 rounded-full text-white  focus:outline-none focus:border-gray-600"
             />
             <input
               type="text"
               placeholder="City"
-              className="w-full p-4 bg-transparent border border-gray-800 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-gray-600"
+              className="w-full p-4 bg-transparent border border-gray-800 rounded-full text-white  focus:outline-none focus:border-gray-600"
             />
           </div>
           
           <textarea
             placeholder="Message"
             rows={1}
-            className="w-full p-4 bg-transparent border border-gray-800 rounded-full text-white placeholder-gray-500 focus:outline-none focus:border-gray-600 resize-none"
+            className="w-full p-4 bg-transparent border border-gray-800 rounded-full text-white  focus:outline-none focus:border-gray-600 resize-none"
           />
           
           <div className="text-center mt-6">
