@@ -53,19 +53,7 @@ const FrequentAction = () => {
   return (
     <section className="bg-black text-white py-16">
       <div className="container mx-auto px-4 max-w-4xl">
-      <div className="absolute inset-0 opacity-30">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `twinkle ${Math.random() * 3 + 1}s infinite`
-            }}
-          />
-        ))}
-      </div>
+      
       
         {/* Header */}
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 font-poppins text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-white">
