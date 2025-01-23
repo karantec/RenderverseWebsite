@@ -1,85 +1,108 @@
-import React from 'react';
+import React from "react";
+import { RxValue } from "react-icons/rx";
+import { IoMdTimer } from "react-icons/io";
+import { LuProjector } from "react-icons/lu";
+import { FaInnosoft } from "react-icons/fa";
 
 const WhyChooseUs = () => {
-  const features = [
-    {
-      position: "top-0 left-1/4 -translate-x-1/2",
-      icon: "50+",
-      title: "Projects delivered",
-      description: "50 + Projects delivered across diverse industries.",
-      isNumber: true
-    },
-    {
-      position: "top-0 right-1/4 translate-x-1/2",
-      icon: "✓",
-      title: "Innovation",
-      description: "Creating innovative and functional mobile applications."
-    },
-    {
-      position: "bottom-0 left-1/4 -translate-x-1/2",
-      icon: "💱",
-      title: "Value Creation",
-      description: "Providing exceptional value for your investment"
-    },
-    {
-      position: "bottom-0 right-1/4 translate-x-1/2",
-      icon: "⏰",
-      title: "Timely Delivery",
-      description: "We take deadlines seriously and deliver projects on time."
-    }
-  ];
-
   return (
-    <div className=" text-white min-h-screen relative p-8">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold mb-2 font-poppins">Why choose us?</h2>
-        <p className="text-gray-400 text-sm font-poppins">From Pixels to Perfection</p>
+    <div className="container mx-auto px-4 py-12">
+      {/* Title Section */}
+      <div className="text-center mb-8">
+        <h2 className="text-4xl font-poppins md:text-4xl mb-4 lg:text-5xl font-bold">
+          Why choose <strong className="text-primary font-poppins">Us</strong>
+        </h2>
+        <p className="text-gray-500  text-2xl font-poppins">The trusted source for why choose us</p>
       </div>
 
-      {/* Main Content Container */}
-      <div className="relative max-w-4xl mx-auto aspect-square">
-        {/* Background Circle Image */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img 
-            src="centerglobe.png" 
-            alt="background"
-            className="w-2/3 h-2/3 object-contain"
-          />
-        </div>
-
-        {/* Center Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <h3 className="text-2xl font-semibold mb-4">
-            Driven by Passion,<br />
-            Powered by<br />
-            Innovation
-          </h3>
-          <button className="bg-white text-black px-6 py-2 rounded-full text-sm">
-            More about us
-          </button>
-        </div>
-
-        {/* Feature Items */}
-        {features.map((feature, index) => (
+      {/* Content Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+        {/* Left Column */}
+        <div className="space-y-8">
+          {/* Projects Delivered */}
           <div
-            key={index}
-            className={`absolute ${feature.position} transform flex flex-col items-center w-64 text-center`}
+            className="text-center sm:text-right transform transition-transform hover:scale-105 duration-300"
           >
-            <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center border border-gray-800 mb-3">
-              {feature.isNumber ? (
-                <span className="text-xl font-bold">{feature.icon}</span>
-              ) : (
-                <span className="text-xl">{feature.icon}</span>
-              )}
+            <div className="flex items-center justify-center w-20 h-20 mx-auto sm:mx-0 bg-white rounded-full shadow-lg animate-fade-in">
+              <LuProjector className="text-black w-10 h-10" /> {/* Icon Styling */}
             </div>
-            <h4 className="text-lg font-semibold mb-1">{feature.title}</h4>
-            <p className="text-gray-400 text-sm">{feature.description}</p>
+            <h4 className="text-2xl font-semibold mt-2 uppercase font-mars ">Projects Delivered</h4>
+            <p className="text-gray-400  mt-3 text-2xl font-poppins">
+              50+ Projects delivered across diverse industries.
+            </p>
           </div>
-        ))}
 
-        {/* Dotted Line */}
-        <div className="absolute top-1/2 left-0 right-0 border-t border-dashed border-blue-500 opacity-30" />
+          {/* Innovation */}
+          <div
+            className="text-center sm:text-right transform transition-transform  hover:scale-105 duration-300">
+            <div className="flex items-center justify-center  w-20 h-20 mx-auto sm:mx-0 bg-white rounded-full shadow-lg animate-fade-in">
+              <FaInnosoft className="text-black w-10 h-10 " /> {/* Icon Styling */}
+            </div>
+            <h4 className="text-2xl font-semibold mt-2 uppercase font-mars">Innovation</h4>
+            <p className="text-gray-400 mt-3 text-2xl font-poppins">
+              Creating innovative and functional mobile applications.
+            </p>
+          </div>
+        </div>
+
+        {/* Center Image */}
+        <div className="hidden lg:block relative">
+          {/* Black Overlay */}
+          <div className="absolute inset-0 bg-black opacity-50 rounded-full"></div>
+
+          {/* Center Image */}
+          <div className="flex justify-center relative">
+            <img
+              src="centerglobe.png"
+              alt="Why Choose Us"
+              className="w-96 h-96 rounded-full transform transition-transform hover:scale-110 duration-300"
+            />
+          </div>
+
+          {/* Text and Button */}
+          <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white animate-fade-in-up">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              Discover Excellence
+            </h3>
+            <p className="mb-6  font-poppins font-bold">
+              Driven by Passion,
+              <br />
+              Powered by Innovation.
+            </p>
+            <button className="bg-white text-black py-2 px-6 rounded-full font-poppins text-sm hover:bg-primary-dark transition">
+              More About Us
+            </button>
+          </div>
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-8">
+          {/* Value Creation */}
+          <div
+            className="text-center sm:text-left transform transition-transform hover:scale-105 duration-300"
+          >
+            <div className="flex items-center justify-center w-20 h-20 mx-auto sm:mx-0 bg-white rounded-full shadow-lg animate-fade-in">
+              <RxValue className="text-black w-10 h-10" /> {/* Icon Styling */}
+            </div>
+            <h4 className="text-2xl font-semibold mt-2 uppercase font-mars">Value Creation</h4>
+            <p className="text-gray-400 mt-3 text-2xl font-poppins">
+              Providing exceptional value for your investment.
+            </p>
+          </div>
+
+          {/* Timely Delivery */}
+          <div
+            className="text-center sm:text-left transform transition-transform hover:scale-105 duration-300"
+          >
+            <div className="flex items-center justify-center w-20 h-20 mx-auto sm:mx-0 bg-white rounded-full shadow-lg animate-fade-in">
+              <IoMdTimer className="text-black w-10 h-10" /> {/* Icon Styling */}
+            </div>
+            <h4 className="text-2xl font-semibold mt-2 uppercase font-mars">Timely Delivery</h4>
+            <p className="text-gray-400 mt-3 text-2xl font-poppins">
+              We take deadlines seriously and deliver projects on time.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

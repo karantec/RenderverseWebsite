@@ -25,6 +25,14 @@ const testimonials = [
     stars: 4.5,
     title: "Web development",
   },
+  {
+    name: "Kabir Verma",
+    role: "Operations Head, Cloudify Systems",
+    review:
+      "Renderverse delivered beyond our expectations! Their innovative solutions and quick turnaround have truly set them apart. We couldn’t be happier with the results!",
+    stars: 4.5,
+    title: "Web development",
+  },
 ];
 
 const TestimonialCard = () => {

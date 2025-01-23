@@ -1,26 +1,23 @@
-import React from "react";
-import ContactForm from "./Components/ContactForm";
-import Footer from "./Components/Footer";  
-import FrequentAction from "./Components/FrequentAction";
-import Navbar from "./Components/Navbar";
-import RenderverseSection from "./Components/HeroSection";
-import WhyChooseUs from "./Components/WhyChoose";
-import Testimonials from "./Components/Testimonial";
+import { Routes, Route } from "react-router-dom"
+import Home from "./Components/Home"
 
-const App = () => {
+import Navbar from "./Components/Navbar"
+import Footer from "./Components/Footer"
+import About from "./Components/AboutUs/About"
+
+
+function App() {
   return (
-    <div className="relative min-h-screen">
-      
-      <Navbar />
-      <RenderverseSection/>
-      <WhyChooseUs/>
-      <Testimonials/>
-      <FrequentAction />
-      <ContactForm />
-      <Footer />
-  
+    <div className="App">
+      <Navbar/>
+      <Routes>
+        <Route path="/" element={ <Home/> } />
+        <Route path="/about" element={ <About/> } />
+       
+      </Routes>
+      <Footer/>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
