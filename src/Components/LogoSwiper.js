@@ -125,8 +125,8 @@ const LogoSwiper = () => {
   }, [isDragging]);
 
   return (
-    <div className="w-full bg-black py-16 overflow-hidden">
-      <div className="max-w-8xl mx-auto px-4">
+    <div className="w-full py-16 overflow-hidden">
+      <div className="max-w-10xl mx-auto px-4">
         <div
           ref={swiperRef}
           className="flex gap-8 overflow-x-auto scrollbar-hide cursor-grab active:cursor-grabbing"
