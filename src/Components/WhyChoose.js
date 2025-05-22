@@ -1,111 +1,69 @@
 import React from "react";
-import { RxValue } from "react-icons/rx";
-import { IoMdTimer } from "react-icons/io";
-import { LuProjector } from "react-icons/lu";
-import { FaInnosoft } from "react-icons/fa";
 
-const WhyChooseUs = () => {
+const CTASection = () => {
   return (
-    <div className="container mx-auto px-4 py-12">
-      {/* Title Section */}
-      <div className="text-center mb-8">
-        <h2 className="text-4xl font-poppins md:text-4xl mb-4 lg:text-5xl font-bold">
-          Why choose <strong className="text-primary font-poppins">Us</strong>
+    <section
+      className="relative py-24 px-6 overflow-hidden"
+      style={{
+        backgroundImage: `url('bg.png')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+
+      {/* Curved top overlay */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden">
+        <svg
+          className="relative block w-full h-20"
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+            opacity=".25"
+            className="fill-current text-black"
+          ></path>
+        </svg>
+      </div>
+
+      {/* Curved bottom overlay */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden rotate-180">
+        <svg
+          className="relative block w-full h-20"
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+            opacity=".25"
+            className="fill-current text-black"
+          ></path>
+        </svg>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          Let's Create together
         </h2>
-        <p className="text-gray-500  text-2xl font-poppins">The trusted source for why choose us</p>
+
+        <p className="text-gray-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
+          Book our services and let us render your universe
+        </p>
+
+        <button className="bg-white text-black font-semibold px-8 py-3 rounded-full hover:bg-gray-100 transition-colors duration-300 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform">
+          Book service
+        </button>
       </div>
-
-      {/* Content Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-        {/* Left Column */}
-        <div className="space-y-8">
-          {/* Projects Delivered */}
-          <div
-            className="text-center sm:text-right transform transition-transform hover:scale-105 duration-300"
-          >
-            <div className="flex items-center justify-center w-20 h-20 mx-auto sm:mx-0 bg-white rounded-full shadow-lg animate-fade-in">
-              <LuProjector className="text-black w-10 h-10" /> {/* Icon Styling */}
-            </div>
-            <h4 className="text-2xl font-semibold mt-2 uppercase font-mars ">Projects Delivered</h4>
-            <p className="text-gray-400  mt-3 text-2xl font-poppins">
-              50+ Projects delivered across diverse industries.
-            </p>
-          </div>
-
-          {/* Innovation */}
-          <div
-            className="text-center sm:text-right transform transition-transform  hover:scale-105 duration-300">
-            <div className="flex items-center justify-center  w-20 h-20 mx-auto sm:mx-0 bg-white rounded-full shadow-lg animate-fade-in">
-              <FaInnosoft className="text-black w-10 h-10 " /> {/* Icon Styling */}
-            </div>
-            <h4 className="text-2xl font-semibold mt-2 uppercase font-mars">Innovation</h4>
-            <p className="text-gray-400 mt-3 text-2xl font-poppins">
-              Creating innovative and functional mobile applications.
-            </p>
-          </div>
-        </div>
-
-        {/* Center Image */}
-        <div className="hidden lg:block relative">
-          {/* Black Overlay */}
-          <div className="absolute inset-0 bg-black opacity-50 rounded-full"></div>
-
-          {/* Center Image */}
-          <div className="flex justify-center relative">
-            <img
-              src="centerglobe.png"
-              alt="Why Choose Us"
-              className="w-96 h-96 rounded-full transform transition-transform hover:scale-110 duration-300"
-            />
-          </div>
-
-          {/* Text and Button */}
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white animate-fade-in-up">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">
-              Discover Excellence
-            </h3>
-            <p className="mb-6  font-poppins font-bold">
-              Driven by Passion,
-              <br />
-              Powered by Innovation.
-            </p>
-            <button className="bg-white text-black py-2 px-6 rounded-full font-poppins text-sm hover:bg-primary-dark transition">
-              More About Us
-            </button>
-          </div>
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-8">
-          {/* Value Creation */}
-          <div
-            className="text-center sm:text-left transform transition-transform hover:scale-105 duration-300"
-          >
-            <div className="flex items-center justify-center w-20 h-20 mx-auto sm:mx-0 bg-white rounded-full shadow-lg animate-fade-in">
-              <RxValue className="text-black w-10 h-10" /> {/* Icon Styling */}
-            </div>
-            <h4 className="text-2xl font-semibold mt-2 uppercase font-mars">Value Creation</h4>
-            <p className="text-gray-400 mt-3 text-2xl font-poppins">
-              Providing exceptional value for your investment.
-            </p>
-          </div>
-
-          {/* Timely Delivery */}
-          <div
-            className="text-center sm:text-left transform transition-transform hover:scale-105 duration-300"
-          >
-            <div className="flex items-center justify-center w-20 h-20 mx-auto sm:mx-0 bg-white rounded-full shadow-lg animate-fade-in">
-              <IoMdTimer className="text-black w-10 h-10" /> {/* Icon Styling */}
-            </div>
-            <h4 className="text-2xl font-semibold mt-2 uppercase font-mars">Timely Delivery</h4>
-            <p className="text-gray-400 mt-3 text-2xl font-poppins">
-              We take deadlines seriously and deliver projects on time.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 };
 
-export default WhyChooseUs;
+export default CTASection;

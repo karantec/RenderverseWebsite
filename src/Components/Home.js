@@ -1,23 +1,17 @@
-import ContactForm from "./ContactForm";
-import Footer from "./Footer";
 import FrequentAction from "./FrequentAction";
-import RenderverseSection from "./HeroSection";
-import Navbar from "./Navbar";
+import LogoSwiper from "./LogoSwiper";
 
-import TestimonialCard from "./Testimonial";
-import WhyChooseUs from "./WhyChoose";
+import CTASection from "./WhyChoose";
 
 const Home = () => {
   return (
     <div>
+      {/* <RenderverseSection />
       
-      <RenderverseSection />
-      <WhyChooseUs />
-      <TestimonialCard />
-     
+      <TestimonialCard /> */}
+      <LogoSwiper />
+      <CTASection />
       <FrequentAction />
-      <ContactForm />
-      
     </div>
   );
 };
