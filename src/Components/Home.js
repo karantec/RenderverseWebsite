@@ -1,3 +1,4 @@
+import OurCreations from "./Creation";
 import FrequentAction from "./FrequentAction";
 import LogoSwiper from "./LogoSwiper";
 import TechShowcase from "./TechShowcase";
@@ -13,6 +14,7 @@ const Home = () => {
       <TestimonialCard /> */}
       <TechShowcase />
       <LogoSwiper />
+      <OurCreations />
       <CTASection />
       <TestimonialSection />
       <FrequentAction />

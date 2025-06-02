@@ -4,6 +4,7 @@ import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 const TestimonialSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [slidesToShow, setSlidesToShow] = useState(3);
 
   const testimonials = [
     {
@@ -88,7 +89,23 @@ const TestimonialSection = () => {
     },
   ];
 
-  const slidesToShow = 3;
+  // Responsive slidesToShow calculation
+  useEffect(() => {
+    const updateSlidesToShow = () => {
+      if (window.innerWidth < 640) {
+        setSlidesToShow(1); // Mobile
+      } else if (window.innerWidth < 1024) {
+        setSlidesToShow(2); // Tablet
+      } else {
+        setSlidesToShow(3); // Desktop
+      }
+    };
+
+    updateSlidesToShow();
+    window.addEventListener("resize", updateSlidesToShow);
+    return () => window.removeEventListener("resize", updateSlidesToShow);
+  }, []);
+
   const maxSlide = Math.max(0, testimonials.length - slidesToShow);
 
   // Auto-play functionality
@@ -124,7 +141,7 @@ const TestimonialSection = () => {
     return Array.from({ length: 5 }, (_, index) => (
       <Star
         key={index}
-        className={`w-5 h-5 transition-all duration-300 ${
+        className={`w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 transition-all duration-300 ${
           index < rating
             ? "text-yellow-400 fill-yellow-400 animate-pulse"
             : "text-gray-300"
@@ -134,40 +151,31 @@ const TestimonialSection = () => {
     ));
   };
 
-  const getVisibleTestimonials = () => {
-    const visible = [];
-    for (let i = 0; i < slidesToShow; i++) {
-      const index = (currentSlide + i) % testimonials.length;
-      visible.push(testimonials[index]);
-    }
-    return visible;
-  };
-
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-900 via-slate-900 to-black overflow-hidden relative">
-      {/* Animated Background Elements */}
+    <section className="py-8 sm:py-12 lg:py-20 bg-gradient-to-br from-gray-900 via-slate-900 to-black overflow-hidden relative min-h-screen">
+      {/* Animated Background Elements - Responsive */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-10 -left-10 w-72 h-72 bg-blue-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-bounce"></div>
+        <div className="absolute -top-5 -left-5 sm:-top-10 sm:-left-10 w-36 h-36 sm:w-72 sm:h-72 bg-blue-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-bounce"></div>
         <div
-          className="absolute -bottom-10 -right-10 w-72 h-72 bg-purple-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-bounce"
+          className="absolute -bottom-5 -right-5 sm:-bottom-10 sm:-right-10 w-36 h-36 sm:w-72 sm:h-72 bg-purple-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-bounce"
           style={{ animationDelay: "2s" }}
         ></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-600 rounded-full mix-blend-screen filter blur-3xl opacity-15 animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-96 sm:h-96 bg-pink-600 rounded-full mix-blend-screen filter blur-3xl opacity-15 animate-pulse"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Animated Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block animate-bounce mb-4">
-            <Quote className="w-16 h-16 text-blue-400 mx-auto" />
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 relative z-10">
+        {/* Responsive Header */}
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+          <div className="inline-block animate-bounce mb-2 sm:mb-4">
+            <Quote className="w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 text-blue-400 mx-auto" />
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in-up">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 sm:mb-6 animate-fade-in-up leading-tight">
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
               What Our Clients Say
             </span>
           </h2>
           <p
-            className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up"
+            className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-3xl mx-auto animate-fade-in-up px-4"
             style={{ animationDelay: "0.2s" }}
           >
             Don't just take our word for it. Here's what our amazing clients
@@ -175,25 +183,25 @@ const TestimonialSection = () => {
           </p>
         </div>
 
-        {/* Swiper Container */}
+        {/* Swiper Container - Enhanced Responsiveness */}
         <div className="relative">
-          {/* Navigation Buttons */}
+          {/* Navigation Buttons - Hidden on very small screens */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-20 bg-gray-800/90 backdrop-blur-sm hover:bg-gray-700 text-gray-300 hover:text-blue-400 p-3 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 group border border-gray-600"
+            className="hidden sm:block absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 lg:-translate-x-4 z-20 bg-gray-800/90 backdrop-blur-sm hover:bg-gray-700 text-gray-300 hover:text-blue-400 p-2 lg:p-3 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 group border border-gray-600"
           >
-            <ChevronLeft className="w-6 h-6 group-hover:animate-pulse" />
+            <ChevronLeft className="w-4 h-4 lg:w-6 lg:h-6 group-hover:animate-pulse" />
           </button>
 
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-20 bg-gray-800/90 backdrop-blur-sm hover:bg-gray-700 text-gray-300 hover:text-blue-400 p-3 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 group border border-gray-600"
+            className="hidden sm:block absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 lg:translate-x-4 z-20 bg-gray-800/90 backdrop-blur-sm hover:bg-gray-700 text-gray-300 hover:text-blue-400 p-2 lg:p-3 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-110 group border border-gray-600"
           >
-            <ChevronRight className="w-6 h-6 group-hover:animate-pulse" />
+            <ChevronRight className="w-4 h-4 lg:w-6 lg:h-6 group-hover:animate-pulse" />
           </button>
 
-          {/* Testimonials Slider */}
-          <div className="overflow-hidden mx-8">
+          {/* Testimonials Slider - Responsive margins */}
+          <div className="overflow-hidden mx-2 sm:mx-4 lg:mx-8">
             <div
               className="flex transition-transform duration-700 ease-in-out"
               style={{
@@ -205,43 +213,49 @@ const TestimonialSection = () => {
               {testimonials.map((testimonial, index) => (
                 <div
                   key={testimonial.id}
-                  className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4"
+                  className={`w-full flex-shrink-0 px-2 sm:px-3 lg:px-4 ${
+                    slidesToShow === 1
+                      ? "w-full"
+                      : slidesToShow === 2
+                      ? "w-1/2"
+                      : "w-1/3"
+                  }`}
                 >
-                  <div className="group bg-gray-800/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-4 hover:rotate-1 transition-all duration-500 border border-gray-700/50 hover:border-blue-400/50 relative overflow-hidden">
+                  <div className="group bg-gray-800/90 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 lg:hover:-translate-y-4 hover:rotate-1 transition-all duration-500 border border-gray-700/50 hover:border-blue-400/50 relative overflow-hidden h-full">
                     {/* Animated Background Gradient */}
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/20 to-pink-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                    {/* Floating Particles */}
-                    <div className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full animate-ping"></div>
+                    {/* Floating Particles - Responsive */}
+                    <div className="absolute top-2 right-2 sm:top-4 sm:right-4 w-1 h-1 sm:w-2 sm:h-2 bg-blue-400 rounded-full animate-ping"></div>
                     <div
-                      className="absolute bottom-8 left-6 w-1 h-1 bg-purple-400 rounded-full animate-ping"
+                      className="absolute bottom-4 left-3 sm:bottom-8 sm:left-6 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-purple-400 rounded-full animate-ping"
                       style={{ animationDelay: "1s" }}
                     ></div>
 
-                    <div className="relative z-10">
-                      {/* Animated Stars */}
-                      <div className="flex items-center mb-6 space-x-1">
+                    <div className="relative z-10 flex flex-col h-full">
+                      {/* Animated Stars - Responsive */}
+                      <div className="flex items-center mb-3 sm:mb-4 lg:mb-6 space-x-0.5 sm:space-x-1">
                         {renderStars(testimonial.rating)}
                       </div>
 
-                      {/* Testimonial Text with Typewriter Effect */}
-                      <blockquote className="text-gray-300 text-lg leading-relaxed mb-8 relative">
-                        <div className="absolute -top-2 -left-2 text-4xl text-blue-400/50 font-serif animate-pulse">
+                      {/* Testimonial Text - Responsive typography */}
+                      <blockquote className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 lg:mb-8 relative flex-grow">
+                        <div className="absolute -top-1 -left-1 sm:-top-2 sm:-left-2 text-2xl sm:text-3xl lg:text-4xl text-blue-400/50 font-serif animate-pulse">
                           "
                         </div>
-                        <p className="italic relative z-10 group-hover:text-gray-200 transition-colors duration-300">
+                        <p className="italic relative z-10 group-hover:text-gray-200 transition-colors duration-300 pt-2">
                           {testimonial.text}
                         </p>
                         <div
-                          className="absolute -bottom-2 -right-2 text-4xl text-blue-400/50 font-serif animate-pulse"
+                          className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 text-2xl sm:text-3xl lg:text-4xl text-blue-400/50 font-serif animate-pulse"
                           style={{ animationDelay: "0.5s" }}
                         >
                           "
                         </div>
                       </blockquote>
 
-                      {/* Client Info with Enhanced Animation */}
-                      <div className="flex items-center">
+                      {/* Client Info - Responsive sizing */}
+                      <div className="flex items-center mt-auto">
                         <div className="relative">
                           <div
                             className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full animate-spin opacity-20"
@@ -250,18 +264,18 @@ const TestimonialSection = () => {
                           <img
                             src={testimonial.image}
                             alt={testimonial.name}
-                            className="w-16 h-16 rounded-full object-cover border-4 border-gray-600 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 relative z-10"
+                            className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-full object-cover border-2 sm:border-4 border-gray-600 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 relative z-10"
                           />
-                          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full border-2 border-gray-800 animate-pulse"></div>
+                          <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full border-1 sm:border-2 border-gray-800 animate-pulse"></div>
                         </div>
-                        <div className="ml-4">
-                          <h4 className="font-bold text-white text-lg group-hover:text-blue-400 transition-colors duration-300">
+                        <div className="ml-2 sm:ml-3 lg:ml-4 min-w-0">
+                          <h4 className="font-bold text-white text-sm sm:text-base lg:text-lg group-hover:text-blue-400 transition-colors duration-300 truncate">
                             {testimonial.name}
                           </h4>
-                          <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300">
+                          <p className="text-gray-400 text-xs sm:text-sm group-hover:text-gray-300 transition-colors duration-300 truncate">
                             {testimonial.role}
                           </p>
-                          <p className="text-blue-400 text-sm font-medium group-hover:text-purple-400 transition-colors duration-300">
+                          <p className="text-blue-400 text-xs sm:text-sm font-medium group-hover:text-purple-400 transition-colors duration-300 truncate">
                             {testimonial.company}
                           </p>
                         </div>
@@ -273,13 +287,13 @@ const TestimonialSection = () => {
             </div>
           </div>
 
-          {/* Progress Dots */}
-          <div className="flex justify-center mt-8 space-x-3">
+          {/* Progress Dots - Responsive sizing */}
+          <div className="flex justify-center mt-6 sm:mt-8 space-x-2 sm:space-x-3">
             {Array.from({ length: maxSlide + 1 }, (_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                   currentSlide === index
                     ? "bg-blue-400 scale-125 animate-pulse"
                     : "bg-gray-600 hover:bg-gray-500"
@@ -289,31 +303,24 @@ const TestimonialSection = () => {
           </div>
         </div>
 
-        {/* Enhanced Call to Action */}
-        <div className="text-center mt-20">
-          <div className="bg-gradient-to-r from-gray-800/90 to-gray-700/90 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-gray-600/50 inline-block relative overflow-hidden group hover:scale-105 transition-all duration-500">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-pink-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="relative z-10">
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 animate-fade-in-up">
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Ready to Join Our Success Stories?
-                </span>
-              </h3>
-              <p
-                className="text-xl text-gray-300 mb-8 animate-fade-in-up"
-                style={{ animationDelay: "0.2s" }}
-              >
-                Let's create something amazing together and transform your
-                vision into reality
-              </p>
-              <button className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white px-12 py-5 rounded-full font-bold text-lg hover:from-blue-500 hover:via-purple-500 hover:to-indigo-500 transform hover:scale-110 hover:-translate-y-1 transition-all duration-300 shadow-2xl hover:shadow-3xl animate-bounce group">
-                <span className="group-hover:animate-pulse">
-                  Get Started Today
-                </span>
-              </button>
-            </div>
-          </div>
+        {/* Mobile Navigation Buttons - Only visible on small screens */}
+        <div className="flex justify-center space-x-4 mt-6 sm:hidden">
+          <button
+            onClick={prevSlide}
+            className="bg-gray-800/90 backdrop-blur-sm hover:bg-gray-700 text-gray-300 hover:text-blue-400 p-3 rounded-full shadow-lg transition-all duration-300 border border-gray-600"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="bg-gray-800/90 backdrop-blur-sm hover:bg-gray-700 text-gray-300 hover:text-blue-400 p-3 rounded-full shadow-lg transition-all duration-300 border border-gray-600"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
+
+        {/* Enhanced Call to Action - Responsive spacing */}
+        <div className="text-center mt-12 sm:mt-16 lg:mt-20"></div>
       </div>
 
       <style jsx>{`
@@ -330,6 +337,13 @@ const TestimonialSection = () => {
 
         .animate-fade-in-up {
           animation: fade-in-up 0.8s ease-out forwards;
+        }
+
+        /* Ensure smooth scrolling on mobile */
+        @media (max-width: 640px) {
+          .overflow-hidden {
+            -webkit-overflow-scrolling: touch;
+          }
         }
       `}</style>
     </section>
