@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Facebook,
   Instagram,
@@ -7,9 +7,35 @@ import {
   MessageCircle,
   Mail,
   Phone,
+  Calendar,
+  X,
 } from "lucide-react";
 
 const Footer = () => {
+  const [showCalendly, setShowCalendly] = useState(false);
+
+  const openCalendly = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setShowCalendly(true);
+  };
+
+  const closeCalendly = () => {
+    setShowCalendly(false);
+  };
+
+  // You can also use Calendly's popup widget instead of iframe
+  const openCalendlyPopup = () => {
+    // Replace 'your-calendly-username' with your actual Calendly username
+    window.open(
+      "https://calendly.com/your-calendly-username",
+      "_blank",
+      "width=800,height=600"
+    );
+  };
+
   return (
     <>
       <footer className="bg-black text-gray-400 py-16">
@@ -80,12 +106,18 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a
-                  href="/book-meeting"
-                  className="text-gray-400 hover:text-white transition-colors text-sm"
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openCalendly();
+                  }}
+                  type="button"
+                  className="text-gray-400 hover:text-white transition-colors text-sm flex items-center space-x-2 hover:bg-gray-800 px-2 py-1 rounded cursor-pointer border-none bg-transparent"
                 >
-                  Book a Quick Meeting
-                </a>
+                  <Calendar className="w-4 h-4" />
+                  <span>Book a Quick Meeting</span>
+                </button>
               </li>
             </ul>
           </div>
@@ -188,6 +220,55 @@ const Footer = () => {
             Chat with us on WhatsApp
           </span>
         </a>
+      </div>
+
+      {/* Calendly Modal */}
+      {showCalendly && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg w-full max-w-4xl h-full max-h-[90vh] relative overflow-hidden">
+            <div className="flex justify-between items-center p-4 border-b">
+              <h3 className="text-xl font-semibold text-gray-800">
+                Schedule a Meeting
+              </h3>
+              <button
+                onClick={closeCalendly}
+                className="bg-gray-100 hover:bg-gray-200 rounded-full p-2 transition-colors"
+                aria-label="Close Calendly"
+              >
+                <X className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
+            <div className="h-full pb-16">
+              <iframe
+                src="https://calendly.com/your-calendly-username"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                title="Schedule a meeting"
+                className="w-full h-full"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Alternative: Fixed Calendly Quick Book Button */}
+      <div className="fixed bottom-6 left-6 z-50">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openCalendly();
+          }}
+          type="button"
+          className="group bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex items-center justify-center border-none cursor-pointer"
+          aria-label="Quick Book Meeting"
+        >
+          <Calendar className="h-6 w-6" />
+          <span className="absolute left-full ml-3 bg-gray-800 text-white px-3 py-1 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            Book a Meeting
+          </span>
+        </button>
       </div>
     </>
   );

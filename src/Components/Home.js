@@ -1,6 +1,7 @@
 import FrequentAction from "./FrequentAction";
 import LogoSwiper from "./LogoSwiper";
 import TechShowcase from "./TechShowcase";
+import TestimonialSection from "./Testimonial";
 
 import CTASection from "./WhyChoose";
 
@@ -13,6 +14,7 @@ const Home = () => {
       <TechShowcase />
       <LogoSwiper />
       <CTASection />
+      <TestimonialSection />
       <FrequentAction />
     </div>
   );

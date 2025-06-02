@@ -28,35 +28,6 @@ const FrequentAction = () => {
       answer:
         "Our pricing depends on the nature and complexity of the project. We offer competitive rates and customized quotes based on your specific needs. Contact us for a detailed consultation and pricing information.",
     },
-    {
-      question: "Do you offer revisions on the work you deliver?",
-      answer:
-        "Yes, we offer revisions to ensure the final product meets your expectations. The number of revisions included will depend on the service agreement, and we strive to achieve complete client satisfaction.",
-    },
-    {
-      question: "What file formats will you deliver?",
-      answer:
-        "We deliver files in the formats that best suit your needs. Common formats include MP4 for videos, JPEG/PNG for images, and HTML/CSS for web development. We can also accommodate specific format requests.",
-    },
-    {
-      question: "How do I pay for your services?",
-      answer: "We accept payments through...",
-    },
-    {
-      question: "Do you offer ongoing support after project completion?",
-      answer:
-        "Yes, we offer revisions to ensure the final product meets your expectations. The number of revisions included will depend on the service agreement, and we strive to achieve complete client satisfaction.",
-    },
-    {
-      question: "Can Renderverse handle large-scale projects?",
-      answer:
-        "Yes, Renderverse is equipped to handle projects of all sizes, from small creative tasks to large-scale, multi-faceted projects. Our team is experienced in managing complex workflows and delivering comprehensive solutions.",
-    },
-    {
-      question: "How do you ensure the quality of your work?",
-      answer:
-        "At Renderverse, quality is our top priority. Our team of skilled professionals follows a rigorous process of planning, execution, and review to ensure every project meets our high standards. We also involve our clients in every step of the process, from initial concept to final delivery, to ensure their vision is accurately captured and executed. Additionally, we offer revisions to fine-tune the final product to your satisfaction.",
-    },
   ];
 
   return (
