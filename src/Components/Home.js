@@ -2,6 +2,7 @@ import OurCreations from "./Creation";
 import FrequentAction from "./FrequentAction";
 import LogoSwiper from "./LogoSwiper";
 import TechShowcase from "./TechShowcase";
+import AnimatedTestimonials from "./Testimonial";
 import TestimonialSection from "./Testimonial";
 
 import CTASection from "./WhyChoose";
@@ -16,7 +17,7 @@ const Home = () => {
       <LogoSwiper />
       <OurCreations />
       <CTASection />
-      <TestimonialSection />
+      <AnimatedTestimonials />
       <FrequentAction />
     </div>
   );
