@@ -143,7 +143,7 @@ const LogoSwiper = () => {
           {[...logos, ...logos, ...logos].map((logo, index) => (
             <div
               key={`${logo.id}-${index}`}
-              className={`flex-shrink-0 w-32 h-32 rounded-full ${logo.bgColor} flex flex-col items-center justify-center text-white transition-transform hover:scale-105 select-none`}
+              className={`flex-shrink-0 w-32 h-32 rounded-full ${logo.bgColor} flex flex-col items-center justify-center text-white select-none`}
             >
               {logo.icon && !logo.text && (
                 <div className="text-2xl font-bold">{logo.icon}</div>
