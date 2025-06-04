@@ -79,7 +79,7 @@ const AnimatedTestimonials = () => {
 
   useEffect(() => {
     if (autoplay) {
-      const interval = setInterval(handleNext, 5000);
+      const interval = setInterval(handleNext, 4000); // Changed to 4 seconds
       return () => clearInterval(interval);
     }
   }, [autoplay]);
@@ -87,7 +87,7 @@ const AnimatedTestimonials = () => {
   const handleManualNavigation = (callback) => {
     setAutoplay(false);
     callback();
-    setTimeout(() => setAutoplay(true), 10000);
+    setTimeout(() => setAutoplay(true), 8000); // Resume autoplay after 8 seconds
   };
 
   return (
@@ -215,23 +215,6 @@ const AnimatedTestimonials = () => {
               </div>
 
               {/* Progress Indicators */}
-              <div className="flex space-x-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      setAutoplay(false);
-                      setActive(index);
-                      setTimeout(() => setAutoplay(true), 10000);
-                    }}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      active === index
-                        ? "bg-blue-400 scale-125"
-                        : "bg-gray-600 hover:bg-gray-500"
-                    }`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
         </div>
@@ -283,6 +266,8 @@ const AnimatedTestimonials = () => {
                 <ChevronRight className="h-6 w-6" />
               </button>
             </div>
+
+            {/* Mobile Progress Indicators */}
           </div>
         </div>
       </div>
