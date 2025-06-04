@@ -1,7 +1,8 @@
 import OurCreations from "./Creation";
 import FrequentAction from "./FrequentAction";
 import LogoSwiper from "./LogoSwiper";
-import AutoSwiperCarousel, { AppleCardsCarouselDemo } from "./Service";
+import AutoSwiperCarousel from "./Service";
+
 import TechShowcase from "./TechShowcase";
 import AnimatedTestimonials from "./Testimonial";
 import TestimonialSection from "./Testimonial";
