@@ -3,12 +3,30 @@ import React, { useState, useEffect } from "react";
 export default function TechShowcase() {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
+  const [animateCards, setAnimateCards] = useState(false);
+  const [animateStats, setAnimateStats] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener("mousemove", handleMouseMove);
+
+    // Staggered animation sequence
+    const animationSequence = async () => {
+      // First: Header appears
+      setTimeout(() => setIsVisible(true), 200);
+
+      // Second: Cards cascade in from outside
+      setTimeout(() => setAnimateCards(true), 800);
+
+      // Third: Stats appear
+      setTimeout(() => setAnimateStats(true), 2500);
+    };
+
+    animationSequence();
+
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
@@ -18,7 +36,7 @@ export default function TechShowcase() {
       name: "Node.js",
       color: "from-green-600/20 to-green-400/10",
       borderColor: "border-green-500/30 hover:border-green-400/60",
-      size: "large",
+      shadowColor: "green",
       icon: (
         <svg viewBox="0 0 256 289" className="w-full h-full">
           <path
@@ -33,7 +51,7 @@ export default function TechShowcase() {
       name: "React",
       color: "from-blue-600/20 to-cyan-400/10",
       borderColor: "border-blue-500/30 hover:border-blue-400/60",
-      size: "medium",
+      shadowColor: "blue",
       icon: (
         <svg viewBox="0 0 256 228" className="w-full h-full">
           <path
@@ -49,7 +67,7 @@ export default function TechShowcase() {
       name: "Python",
       color: "from-yellow-600/20 to-blue-600/20",
       borderColor: "border-yellow-500/30 hover:border-yellow-400/60",
-      size: "large",
+      shadowColor: "yellow",
       icon: (
         <svg viewBox="0 0 256 255" className="w-full h-full">
           <defs>
@@ -90,7 +108,7 @@ export default function TechShowcase() {
       name: "Flutter",
       color: "from-blue-500/20 to-cyan-300/10",
       borderColor: "border-blue-400/30 hover:border-blue-300/60",
-      size: "medium",
+      shadowColor: "blue",
       icon: (
         <svg viewBox="0 0 256 317" className="w-full h-full">
           <path
@@ -117,7 +135,7 @@ export default function TechShowcase() {
       name: "Vue.js",
       color: "from-green-500/20 to-emerald-400/10",
       borderColor: "border-green-400/30 hover:border-green-300/60",
-      size: "small",
+      shadowColor: "green",
       icon: (
         <svg viewBox="0 0 256 221" className="w-full h-full">
           <path
@@ -136,7 +154,7 @@ export default function TechShowcase() {
       name: "Angular",
       color: "from-red-500/20 to-pink-400/10",
       borderColor: "border-red-400/30 hover:border-red-300/60",
-      size: "medium",
+      shadowColor: "red",
       icon: (
         <svg viewBox="0 0 256 272" className="w-full h-full">
           <path
@@ -155,7 +173,7 @@ export default function TechShowcase() {
       name: "Next.js",
       color: "from-gray-800/40 to-gray-600/20",
       borderColor: "border-gray-600/30 hover:border-gray-500/60",
-      size: "small",
+      shadowColor: "gray",
       icon: (
         <svg viewBox="0 0 256 256" className="w-full h-full">
           <rect width="256" height="256" rx="60" fill="#000" />
@@ -171,7 +189,7 @@ export default function TechShowcase() {
       name: "Swift",
       color: "from-orange-500/20 to-red-500/10",
       borderColor: "border-orange-400/30 hover:border-orange-300/60",
-      size: "medium",
+      shadowColor: "orange",
       icon: (
         <svg viewBox="0 0 256 256" className="w-full h-full">
           <defs>
@@ -199,7 +217,7 @@ export default function TechShowcase() {
       name: "Kotlin",
       color: "from-purple-500/20 to-orange-500/20",
       borderColor: "border-purple-400/30 hover:border-purple-300/60",
-      size: "large",
+      shadowColor: "purple",
       icon: (
         <svg viewBox="0 0 256 256" className="w-full h-full">
           <defs>
@@ -234,66 +252,70 @@ export default function TechShowcase() {
     },
   ];
 
-  const getCardClasses = (tech) => {
+  // Function to determine animation direction based on grid position
+  const getAnimationDirection = (index) => {
+    const gridCols = {
+      mobile: 1,
+      sm: 2,
+      lg: 3,
+      xl: 4,
+    };
+
+    // Calculate position in different grid layouts
+    const xlRow = Math.floor(index / gridCols.xl);
+    const xlCol = index % gridCols.xl;
+
+    // Determine direction based on position
+    if (xlCol === 0) return "left"; // Left column - come from left
+    if (xlCol === gridCols.xl - 1) return "right"; // Right column - come from right
+    if (xlRow === 0) return "top"; // Top row - come from top
+    return "bottom"; // Others come from bottom
+  };
+
+  const getCardClasses = (tech, index) => {
+    const direction = getAnimationDirection(index);
+
     const baseClasses = `
-      relative group cursor-pointer transition-all duration-500 ease-out
+      relative group cursor-pointer transition-all duration-1200 ease-out
       backdrop-blur-md bg-gradient-to-br ${tech.color}
       border ${tech.borderColor}
       rounded-3xl overflow-hidden
       transform hover:scale-105 hover:-translate-y-2
-      hover:shadow-2xl hover:shadow-${
-        tech.borderColor.includes("green")
-          ? "green"
-          : tech.borderColor.includes("blue")
-          ? "blue"
-          : tech.borderColor.includes("red")
-          ? "red"
-          : tech.borderColor.includes("yellow")
-          ? "yellow"
-          : tech.borderColor.includes("orange")
-          ? "orange"
-          : tech.borderColor.includes("purple")
-          ? "purple"
-          : "gray"
-      }-500/25
+      hover:shadow-2xl hover:shadow-${tech.shadowColor}-500/25
+      h-40 w-full
     `;
 
-    const sizeClasses = {
-      small:
-        "col-span-6 sm:col-span-4 lg:col-span-3 xl:col-span-2 row-span-1 h-24 sm:h-28",
-      medium:
-        "col-span-6 sm:col-span-6 lg:col-span-4 xl:col-span-3 row-span-1 sm:row-span-2 h-24 sm:h-32 lg:h-40",
-      large:
-        "col-span-12 sm:col-span-8 lg:col-span-6 xl:col-span-4 row-span-2 sm:row-span-3 h-32 sm:h-40 lg:h-48",
+    // Enhanced animation classes with direction-based movement
+    const getTransform = () => {
+      if (!animateCards) {
+        switch (direction) {
+          case "left":
+            return "-translate-x-full -rotate-12 opacity-0 scale-75";
+          case "right":
+            return "translate-x-full rotate-12 opacity-0 scale-75";
+          case "top":
+            return "-translate-y-full -rotate-6 opacity-0 scale-75";
+          case "bottom":
+            return "translate-y-full rotate-6 opacity-0 scale-75";
+          default:
+            return "-translate-y-20 opacity-0 scale-75";
+        }
+      }
+      return "translate-x-0 translate-y-0 rotate-0 opacity-100 scale-100";
     };
 
-    return `${baseClasses} ${sizeClasses[tech.size]}`;
-  };
+    const animationClasses = getTransform();
 
-  const getIconSize = (size) => {
-    switch (size) {
-      case "small":
-        return "w-6 h-6 sm:w-8 sm:h-8";
-      case "medium":
-        return "w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16";
-      case "large":
-        return "w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20";
-      default:
-        return "w-8 h-8";
-    }
-  };
+    const animationStyle = {
+      transitionDelay: `${index * 120}ms`,
+      transitionDuration: "1200ms",
+      transitionTimingFunction: "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+    };
 
-  const getTextSize = (size) => {
-    switch (size) {
-      case "small":
-        return "text-sm sm:text-base font-bold";
-      case "medium":
-        return "text-base sm:text-lg lg:text-xl font-bold";
-      case "large":
-        return "text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold";
-      default:
-        return "text-base font-bold";
-    }
+    return {
+      classes: `${baseClasses} ${animationClasses}`,
+      style: animationStyle,
+    };
   };
 
   return (
@@ -317,9 +339,18 @@ export default function TechShowcase() {
 
       <div className="relative z-10 p-4 sm:p-6 lg:p-8">
         <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-8 sm:mb-12">
-            <h1 className="text-2xl  font-black bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent mb-4">
+          {/* Header with enhanced animation */}
+          <div
+            className={`text-center mb-8 sm:mb-12 transition-all duration-1200 ease-out transform ${
+              isVisible
+                ? "translate-y-0 opacity-100 scale-100"
+                : "-translate-y-16 opacity-0 scale-95"
+            }`}
+            style={{
+              transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+            }}
+          >
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent mb-4">
               Tech Stack
             </h1>
             <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto">
@@ -327,64 +358,72 @@ export default function TechShowcase() {
             </p>
           </div>
 
-          {/* Masonry Grid */}
-          <div className="grid grid-cols-12 gap-3 sm:gap-4 lg:gap-6 auto-rows-min">
-            {technologies.map((tech) => (
-              <div
-                key={tech.id}
-                className={getCardClasses(tech)}
-                onMouseEnter={() => setHoveredCard(tech.id)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                {/* Glow Effect */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                </div>
-
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col items-center justify-center p-3 sm:p-4 lg:p-6">
-                  <div
-                    className={`${getIconSize(
-                      tech.size
-                    )} mb-2 sm:mb-3 lg:mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
-                  >
-                    {tech.icon}
+          {/* Uniform Grid with enhanced animations */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            {technologies.map((tech, index) => {
+              const cardConfig = getCardClasses(tech, index);
+              return (
+                <div
+                  key={tech.id}
+                  className={cardConfig.classes}
+                  style={cardConfig.style}
+                  onMouseEnter={() => setHoveredCard(tech.id)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                >
+                  {/* Glow Effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                   </div>
-                  <h3
-                    className={`text-white ${getTextSize(
-                      tech.size
-                    )} text-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 group-hover:bg-clip-text transition-all duration-300`}
-                  >
-                    {tech.name}
-                  </h3>
-                </div>
 
-                {/* Particle Effect */}
-                {hoveredCard === tech.id && (
-                  <div className="absolute inset-0 pointer-events-none">
-                    {[...Array(6)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute w-1 h-1 bg-white/60 rounded-full animate-ping"
-                        style={{
-                          left: `${20 + i * 10}%`,
-                          top: `${30 + (i % 2) * 40}%`,
-                          animationDelay: `${i * 200}ms`,
-                          animationDuration: "2s",
-                        }}
-                      ></div>
-                    ))}
+                  {/* Content */}
+                  <div className="relative z-10 h-full flex flex-col items-center justify-center p-6">
+                    <div className="w-16 h-16 mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                      {tech.icon}
+                    </div>
+                    <h3 className="text-white text-lg font-bold text-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 group-hover:bg-clip-text transition-all duration-300">
+                      {tech.name}
+                    </h3>
                   </div>
-                )}
-              </div>
-            ))}
 
-            {/* Special "More Technologies" Card */}
-            <div className="col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 row-span-1 h-24 sm:h-28 relative group cursor-pointer">
+                  {/* Particle Effect */}
+                  {hoveredCard === tech.id && (
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(6)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="absolute w-1 h-1 bg-white/60 rounded-full animate-ping"
+                          style={{
+                            left: `${20 + i * 10}%`,
+                            top: `${30 + (i % 2) * 40}%`,
+                            animationDelay: `${i * 200}ms`,
+                            animationDuration: "2s",
+                          }}
+                        ></div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {/* Special "More Technologies" Card with animation */}
+            <div
+              className={`h-40 w-full relative group cursor-pointer transition-all duration-1200 ease-out transform ${
+                animateCards
+                  ? "translate-x-0 translate-y-0 rotate-0 opacity-100 scale-100"
+                  : "translate-y-full rotate-6 opacity-0 scale-75"
+              }`}
+              style={{
+                transitionDelay: `${technologies.length * 120}ms`,
+                transitionDuration: "1200ms",
+                transitionTimingFunction:
+                  "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+              }}
+            >
               <div className="h-full bg-gradient-to-br from-indigo-600/20 to-pink-600/20 backdrop-blur-md border border-indigo-500/30 rounded-3xl flex items-center justify-center transition-all duration-500 hover:scale-105 hover:border-indigo-400/60">
                 <div className="text-center">
-                  <div className="text-2xl sm:text-3xl mb-1">✨</div>
-                  <p className="text-white font-bold text-sm sm:text-base">
+                  <div className="text-4xl mb-2 animate-bounce">✨</div>
+                  <p className="text-white font-bold text-lg">
                     and many more...
                   </p>
                 </div>
@@ -392,15 +431,36 @@ export default function TechShowcase() {
             </div>
           </div>
 
-          {/* Bottom Stats */}
-          <div className="mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+          {/* Bottom Stats with enhanced animation */}
+          <div
+            className={`mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 transition-all duration-1200 ease-out transform ${
+              animateStats
+                ? "translate-y-0 opacity-100 scale-100"
+                : "translate-y-12 opacity-0 scale-95"
+            }`}
+            style={{
+              transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+              transitionDelay: "200ms",
+            }}
+          >
             {[
               { number: "10+", label: "Technologies" },
               { number: "5+", label: "Years Experience" },
               { number: "100+", label: "Projects Built" },
               { number: "∞", label: "Possibilities" },
             ].map((stat, index) => (
-              <div key={index} className="text-center">
+              <div
+                key={index}
+                className={`text-center transition-all duration-800 ease-out transform ${
+                  animateStats
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-8 opacity-0"
+                }`}
+                style={{
+                  transitionDelay: `${400 + index * 100}ms`,
+                  transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+                }}
+              >
                 <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-1 sm:mb-2">
                   {stat.number}
                 </div>

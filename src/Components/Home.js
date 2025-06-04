@@ -1,6 +1,7 @@
 import OurCreations from "./Creation";
 import FrequentAction from "./FrequentAction";
 import LogoSwiper from "./LogoSwiper";
+import AutoSwiperCarousel, { AppleCardsCarouselDemo } from "./Service";
 import TechShowcase from "./TechShowcase";
 import AnimatedTestimonials from "./Testimonial";
 import TestimonialSection from "./Testimonial";
@@ -16,6 +17,7 @@ const Home = () => {
       <TechShowcase />
       <LogoSwiper />
       <OurCreations />
+      <AutoSwiperCarousel />
       <CTASection />
       <AnimatedTestimonials />
       <FrequentAction />
