@@ -45,7 +45,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <img
-              src="logo.png"
+              src="logo3.png"
               alt="Renderverse Logo"
               className="w-20 h-20 ml-4"
             />
