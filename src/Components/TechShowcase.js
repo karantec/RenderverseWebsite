@@ -310,7 +310,7 @@ const TechnologiesSection = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-8 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 mt-10 flex items-center justify-center p-8 overflow-hidden">
       <div className="max-w-6xl w-full">
         {/* Header */}
         <div className="text-center mb-16">

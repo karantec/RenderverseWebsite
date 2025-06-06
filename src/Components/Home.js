@@ -1,6 +1,7 @@
 import ContactForm from "./Contact";
 import OurCreations from "./Creation";
 import FrequentAction from "./FrequentAction";
+import HeroSection from "./Hero";
 import LogoSwiper from "./LogoSwiper";
 import ServiceCardsShowcase from "./Service";
 import TechnologiesSection from "./TechShowcase";
@@ -16,6 +17,7 @@ const Home = () => {
       {/* <RenderverseSection />
 
       <TestimonialCard /> */}
+      <HeroSection />
       <TechnologiesSection />
       <LogoSwiper />
       <OurCreations />
