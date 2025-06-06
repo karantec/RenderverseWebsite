@@ -1,520 +1,371 @@
-// import React, { useState, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import * as THREE from "three";
+import {
+  ChevronDown,
+  Terminal,
+  Code,
+  Cpu,
+  Database,
+  Shield,
+  Zap,
+} from "lucide-react";
 
-// const TechnologiesSection = () => {
-//   const [currentIndex, setCurrentIndex] = useState(0);
-//   const [isAnimating, setIsAnimating] = useState(false);
-
-//   const technologies = [
-//     { name: "Node.js", color: "#339933", icon: "⬢" },
-//     { name: "Next.js", color: "#000000", icon: "▲" },
-//     { name: "Vue.js", color: "#4FC08D", icon: "▼" },
-//     { name: "Angular.js", color: "#DD0031", icon: "🅰" },
-//     { name: "Python", color: "#3776AB", icon: "🐍" },
-//     { name: "PHP", color: "#777BB4", icon: "🐘" },
-//     { name: "Flutter", color: "#02569B", icon: "💙" },
-//     { name: "Swift", color: "#FA7343", icon: "🦉" },
-//     { name: "Unity", color: "#000000", icon: "⚫" },
-//     { name: "Unreal Engine", color: "#0E1128", icon: "🎮" },
-//     { name: "MongoDB", color: "#47A248", icon: "🍃" },
-//     { name: "Kotlin", color: "#7F52FF", icon: "🎯" },
-//     { name: "React", color: "#61DAFB", icon: "⚛" },
-//     { name: "TypeScript", color: "#3178C6", icon: "TS" },
-//     { name: "Docker", color: "#2496ED", icon: "🐳" },
-//     { name: "AWS", color: "#FF9900", icon: "☁️" },
-//   ];
-
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setIsAnimating(true);
-//       setTimeout(() => {
-//         setCurrentIndex((prev) => (prev + 1) % technologies.length);
-//         setIsAnimating(false);
-//       }, 300);
-//     }, 2000);
-
-//     return () => clearInterval(interval);
-//   }, [technologies.length]);
-
-//   const getVisibleTechs = () => {
-//     const visible = [];
-//     for (let i = -2; i <= 2; i++) {
-//       const index =
-//         (currentIndex + i + technologies.length) % technologies.length;
-//       visible.push({
-//         ...technologies[index],
-//         offset: i,
-//         key: `${index}-${currentIndex}`,
-//       });
-//     }
-//     return visible;
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-8 overflow-hidden">
-//       <div className="max-w-6xl w-full">
-//         {/* Header */}
-//         <div className="text-center mb-16">
-//           <h2 className="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight">
-//             Technologies
-//             <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-//               We Use
-//             </span>
-//           </h2>
-//           <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-//             Cutting-edge tools and frameworks that power our innovative
-//             solutions
-//           </p>
-//         </div>
-
-//         {/* Main Animation Container */}
-//         <div className="relative h-96 flex items-center justify-center">
-//           {/* Background Glow Effects */}
-//           <div className="absolute inset-0 flex items-center justify-center">
-//             <div className="w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-//           </div>
-
-//           {/* Floating Particles */}
-//           {[...Array(20)].map((_, i) => (
-//             <div
-//               key={i}
-//               className="absolute w-2 h-2 bg-white/20 rounded-full animate-ping"
-//               style={{
-//                 left: `${Math.random() * 100}%`,
-//                 top: `${Math.random() * 100}%`,
-//                 animationDelay: `${Math.random() * 2}s`,
-//                 animationDuration: `${2 + Math.random() * 3}s`,
-//               }}
-//             />
-//           ))}
-
-//           {/* Technology Cards Flow */}
-//           <div className="relative w-full h-full flex items-center justify-center">
-//             {getVisibleTechs().map((tech) => {
-//               const scale =
-//                 tech.offset === 0 ? 1.2 : 1 - Math.abs(tech.offset) * 0.15;
-//               const opacity =
-//                 tech.offset === 0 ? 1 : 1 - Math.abs(tech.offset) * 0.3;
-//               const translateX = tech.offset * 200;
-//               const translateY = Math.abs(tech.offset) * 20;
-//               const blur = Math.abs(tech.offset) * 2;
-
-//               return (
-//                 <div
-//                   key={tech.key}
-//                   className={`absolute transition-all duration-700 ease-out ${
-//                     isAnimating ? "duration-300" : ""
-//                   }`}
-//                   style={{
-//                     transform: `translateX(${translateX}px) translateY(${translateY}px) scale(${scale})`,
-//                     opacity,
-//                     filter: `blur(${blur}px)`,
-//                     zIndex: tech.offset === 0 ? 10 : 5 - Math.abs(tech.offset),
-//                   }}
-//                 >
-//                   <div
-//                     className={`
-//                       relative p-8 rounded-3xl backdrop-blur-xl border border-white/10
-//                       ${
-//                         tech.offset === 0
-//                           ? "bg-white/10 shadow-2xl shadow-purple-500/25"
-//                           : "bg-white/5"
-//                       }
-//                       hover:bg-white/15 transition-all duration-300
-//                       min-w-[200px] text-center
-//                     `}
-//                     style={{
-//                       boxShadow:
-//                         tech.offset === 0
-//                           ? `0 20px 40px ${tech.color}20, 0 0 60px ${tech.color}10`
-//                           : "none",
-//                     }}
-//                   >
-//                     {/* Icon */}
-//                     <div
-//                       className="text-6xl mb-4 filter drop-shadow-lg"
-//                       style={{
-//                         color: tech.offset === 0 ? tech.color : "#ffffff80",
-//                         textShadow:
-//                           tech.offset === 0 ? `0 0 20px ${tech.color}` : "none",
-//                       }}
-//                     >
-//                       {tech.icon}
-//                     </div>
-
-//                     {/* Tech Name */}
-//                     <h3
-//                       className={`
-//                         font-bold text-xl mb-2 transition-all duration-300
-//                         ${tech.offset === 0 ? "text-white" : "text-white/60"}
-//                       `}
-//                       style={{
-//                         textShadow:
-//                           tech.offset === 0
-//                             ? `0 0 10px ${tech.color}40`
-//                             : "none",
-//                       }}
-//                     >
-//                       {tech.name}
-//                     </h3>
-
-//                     {/* Animated Border */}
-//                     {tech.offset === 0 && (
-//                       <div
-//                         className="absolute inset-0 rounded-3xl opacity-60 animate-pulse"
-//                         style={{
-//                           background: `linear-gradient(45deg, ${tech.color}20, transparent, ${tech.color}20)`,
-//                           animation: "borderRotate 3s linear infinite",
-//                         }}
-//                       />
-//                     )}
-
-//                     {/* Glow Effect */}
-//                     {tech.offset === 0 && (
-//                       <div
-//                         className="absolute inset-0 rounded-3xl blur-xl opacity-30 -z-10"
-//                         style={{ backgroundColor: tech.color }}
-//                       />
-//                     )}
-//                   </div>
-//                 </div>
-//               );
-//             })}
-//           </div>
-
-//           {/* Center Highlight Ring */}
-//           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-//             <div
-//               className="w-80 h-80 border-2 border-white/10 rounded-full animate-spin opacity-30"
-//               style={{ animationDuration: "20s" }}
-//             />
-//             <div
-//               className="absolute w-60 h-60 border border-purple-500/30 rounded-full animate-spin"
-//               style={{
-//                 animationDuration: "15s",
-//                 animationDirection: "reverse",
-//               }}
-//             />
-//           </div>
-//         </div>
-
-//         {/* Bottom Navigation Dots */}
-//         <div className="flex justify-center mt-16 space-x-3">
-//           {technologies.map((_, index) => (
-//             <button
-//               key={index}
-//               onClick={() => setCurrentIndex(index)}
-//               className={`
-//                 w-3 h-3 rounded-full transition-all duration-300
-//                 ${
-//                   index === currentIndex
-//                     ? "bg-purple-500 shadow-lg shadow-purple-500/50 scale-125"
-//                     : "bg-white/30 hover:bg-white/50"
-//                 }
-//               `}
-//             />
-//           ))}
-//         </div>
-
-//         {/* Additional Info */}
-//         <div className="text-center mt-12">
-//           <p className="text-gray-400 text-lg">
-//             <span className="text-purple-400 font-semibold">
-//               {technologies.length}+ Technologies
-//             </span>{" "}
-//             and many more in our arsenal
-//           </p>
-//         </div>
-//       </div>
-
-//       <style jsx>{`
-//         @keyframes borderRotate {
-//           0% {
-//             transform: rotate(0deg);
-//           }
-//           100% {
-//             transform: rotate(360deg);
-//           }
-//         }
-
-//         .animate-float {
-//           animation: float 6s ease-in-out infinite;
-//         }
-
-//         @keyframes float {
-//           0%,
-//           100% {
-//             transform: translateY(0px) rotate(0deg);
-//           }
-//           33% {
-//             transform: translateY(-10px) rotate(1deg);
-//           }
-//           66% {
-//             transform: translateY(5px) rotate(-1deg);
-//           }
-//         }
-//       `}</style>
-//     </div>
-//   );
-// };
-
-// export default TechnologiesSection;
-import React, { useState, useEffect } from "react";
-
-const TechnologiesSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const technologies = [
-    { name: "Node.js", color: "#339933", icon: "⬢" },
-    { name: "Next.js", color: "#000000", icon: "▲" },
-    { name: "Vue.js", color: "#4FC08D", icon: "▼" },
-    { name: "Angular.js", color: "#DD0031", icon: "🅰" },
-    { name: "Python", color: "#3776AB", icon: "🐍" },
-    { name: "PHP", color: "#777BB4", icon: "🐘" },
-    { name: "Flutter", color: "#02569B", icon: "💙" },
-    { name: "Swift", color: "#FA7343", icon: "🦉" },
-    { name: "Unity", color: "#000000", icon: "⚫" },
-    { name: "Unreal Engine", color: "#0E1128", icon: "🎮" },
-    { name: "MongoDB", color: "#47A248", icon: "🍃" },
-    { name: "Kotlin", color: "#7F52FF", icon: "🎯" },
-    { name: "React", color: "#61DAFB", icon: "⚛" },
-    { name: "TypeScript", color: "#3178C6", icon: "TS" },
-    { name: "Docker", color: "#2496ED", icon: "🐳" },
-    { name: "AWS", color: "#FF9900", icon: "☁️" },
-  ];
+const HeroSection = () => {
+  const mountRef = useRef(null);
+  const sceneRef = useRef(null);
+  const rendererRef = useRef(null);
+  const cameraRef = useRef(null);
+  const shapesRef = useRef([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % technologies.length);
-        setIsAnimating(false);
-      }, 300);
-    }, 2000);
+    if (!mountRef.current) return;
 
-    return () => clearInterval(interval);
-  }, [technologies.length]);
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
-  const getVisibleTechs = () => {
-    const visible = [];
-    for (let i = -2; i <= 2; i++) {
-      const index =
-        (currentIndex + i + technologies.length) % technologies.length;
-      visible.push({
-        ...technologies[index],
-        offset: i,
-        key: `${index}-${currentIndex}`,
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
+    mountRef.current.appendChild(renderer.domElement);
+
+    sceneRef.current = scene;
+    rendererRef.current = renderer;
+    cameraRef.current = camera;
+
+    // Create more complex technical shapes
+    const shapes = [];
+    const geometries = [
+      new THREE.BoxGeometry(1.2, 1.2, 1.2),
+      new THREE.SphereGeometry(0.8, 32, 32),
+      new THREE.ConeGeometry(0.8, 1.8, 16),
+      new THREE.OctahedronGeometry(1),
+      new THREE.TetrahedronGeometry(1.1),
+      new THREE.CylinderGeometry(0.5, 0.8, 1.5, 16),
+      new THREE.DodecahedronGeometry(0.9),
+      new THREE.IcosahedronGeometry(0.9),
+    ];
+
+    const technicalColors = [
+      0x00ff88, 0x0088ff, 0xff0080, 0xff8800, 0x8800ff, 0x00ffff,
+    ];
+
+    for (let i = 0; i < 25; i++) {
+      const geometry =
+        geometries[Math.floor(Math.random() * geometries.length)];
+      const material = new THREE.MeshPhongMaterial({
+        color:
+          technicalColors[Math.floor(Math.random() * technicalColors.length)],
+        transparent: true,
+        opacity: 0.8,
+        shininess: 200,
+        emissive:
+          technicalColors[Math.floor(Math.random() * technicalColors.length)],
+        emissiveIntensity: 0.1,
       });
+
+      const mesh = new THREE.Mesh(geometry, material);
+
+      // More dynamic positioning for technical feel
+      mesh.position.x = (Math.random() - 0.5) * 25;
+      mesh.position.y = (Math.random() - 0.5) * 20;
+      mesh.position.z = (Math.random() - 0.5) * 15;
+
+      // Random rotation speeds
+      mesh.rotationSpeed = {
+        x: (Math.random() - 0.5) * 0.02,
+        y: (Math.random() - 0.5) * 0.02,
+        z: (Math.random() - 0.5) * 0.02,
+      };
+
+      // Random movement
+      mesh.floatSpeed = Math.random() * 0.01 + 0.005;
+      mesh.floatOffset = Math.random() * Math.PI * 2;
+
+      scene.add(mesh);
+      shapes.push(mesh);
     }
-    return visible;
-  };
+
+    shapesRef.current = shapes;
+
+    // Enhanced lighting for technical atmosphere
+    const ambientLight = new THREE.AmbientLight(0x222244, 0.4);
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0x00ff88, 1.5);
+    directionalLight.position.set(8, 8, 8);
+    scene.add(directionalLight);
+
+    const pointLight1 = new THREE.PointLight(0x0088ff, 2, 150);
+    pointLight1.position.set(-8, 8, 8);
+    scene.add(pointLight1);
+
+    const pointLight2 = new THREE.PointLight(0xff0080, 1.5, 120);
+    pointLight2.position.set(8, -5, -8);
+    scene.add(pointLight2);
+
+    // Camera position
+    camera.position.z = 10;
+
+    // Mouse interaction
+    const mouse = new THREE.Vector2();
+    const handleMouseMove = (event) => {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // Animation loop
+    const animate = () => {
+      requestAnimationFrame(animate);
+
+      // Animate shapes
+      shapes.forEach((shape, index) => {
+        shape.rotation.x += shape.rotationSpeed.x;
+        shape.rotation.y += shape.rotationSpeed.y;
+        shape.rotation.z += shape.rotationSpeed.z;
+
+        // Floating motion
+        shape.position.y +=
+          Math.sin(Date.now() * shape.floatSpeed + shape.floatOffset) * 0.01;
+
+        // Mouse interaction
+        const distance = Math.sqrt(
+          Math.pow(shape.position.x - mouse.x * 5, 2) +
+            Math.pow(shape.position.y - mouse.y * 5, 2)
+        );
+
+        if (distance < 3) {
+          shape.scale.setScalar(1.2 + Math.sin(Date.now() * 0.01) * 0.1);
+          shape.material.opacity = 0.9;
+        } else {
+          shape.scale.setScalar(1);
+          shape.material.opacity = 0.7;
+        }
+      });
+
+      // Camera sway
+      camera.position.x = Math.sin(Date.now() * 0.0005) * 0.5;
+      camera.position.y = Math.cos(Date.now() * 0.0007) * 0.3;
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+    setIsLoaded(true);
+
+    // Handle resize
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
+      if (mountRef.current && renderer.domElement) {
+        mountRef.current.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 mt-10 flex items-center justify-center p-8 overflow-hidden">
-      <div className="max-w-6xl w-full">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight">
-            Technologies
-            <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-              We Use
+    <div className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
+      {/* Three.js Canvas */}
+      <div
+        ref={mountRef}
+        className="absolute inset-0 z-0"
+        style={{
+          opacity: isLoaded ? 1 : 0,
+          transition: "opacity 1.5s ease-in-out",
+        }}
+      />
+
+      {/* Technical Grid Overlay */}
+      <div
+        className="absolute inset-0 opacity-10 z-10"
+        style={{
+          backgroundImage: `
+               linear-gradient(rgba(0,255,136,0.3) 1px, transparent 1px),
+               linear-gradient(90deg, rgba(0,255,136,0.3) 1px, transparent 1px)
+             `,
+          backgroundSize: "50px 50px",
+        }}
+      />
+
+      {/* Gradient Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60 z-15" />
+      <div className="absolute inset-0 bg-gradient-to-r from-green-900/10 via-transparent to-blue-900/10 z-15" />
+
+      {/* Content */}
+      <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-4 text-center">
+        {/* Floating Technical Icons */}
+        <div className="absolute top-16 left-16 animate-pulse delay-100">
+          <Terminal className="text-green-400 w-10 h-10 opacity-80" />
+        </div>
+        <div className="absolute top-24 right-20 animate-bounce delay-200">
+          <Code className="text-blue-400 w-8 h-8 opacity-70" />
+        </div>
+        <div className="absolute bottom-28 left-20 animate-pulse delay-300">
+          <Cpu className="text-purple-400 w-9 h-9 opacity-60" />
+        </div>
+        <div className="absolute top-40 right-32 animate-bounce delay-500">
+          <Database className="text-cyan-400 w-7 h-7 opacity-75" />
+        </div>
+        <div className="absolute bottom-40 right-16 animate-pulse delay-700">
+          <Shield className="text-red-400 w-8 h-8 opacity-65" />
+        </div>
+
+        {/* Main Content */}
+        <div className="max-w-6xl mx-auto space-y-10 animate-fade-in">
+          {/* Technical Status Badge */}
+          <div className="inline-flex items-center px-6 py-3 rounded-full bg-green-500/20 backdrop-blur-sm border border-green-400/30 text-sm text-green-300 font-mono animate-pulse">
+            <span className="w-3 h-3 bg-green-400 rounded-full mr-3 animate-ping"></span>
+            SYSTEM_STATUS: OPERATIONAL
+          </div>
+
+          {/* Main Heading - Technical & Strong */}
+          <h1 className="text-7xl md:text-9xl font-black bg-gradient-to-r from-white via-green-200 to-cyan-200 bg-clip-text text-transparent leading-tight tracking-tight">
+            ENGINEER
+            <span className="block bg-gradient-to-r from-green-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
+              THE IMPOSSIBLE
             </span>
-          </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Cutting-edge tools and frameworks that power our innovative
-            solutions
+          </h1>
+
+          {/* Technical Subtitle */}
+          <p className="text-2xl md:text-3xl text-gray-200 max-w-4xl mx-auto leading-relaxed font-medium">
+            Build systems that{" "}
+            <span className="text-green-400 font-bold">scale infinitely</span>.
+            Deploy code that{" "}
+            <span className="text-cyan-400 font-bold">never breaks</span>.
+            Create architectures that{" "}
+            <span className="text-blue-400 font-bold">define the future</span>.
           </p>
-        </div>
 
-        {/* Main Animation Container */}
-        <div className="relative h-96 flex items-center justify-center">
-          {/* Background Glow Effects */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-96 h-96 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          {/* Technical Features */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 max-w-4xl mx-auto">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-green-400/20 rounded-lg p-6 hover:border-green-400/40 transition-all duration-300">
+              <Zap className="text-green-400 w-8 h-8 mb-3" />
+              <h3 className="text-xl font-bold text-white mb-2">
+                Lightning Fast
+              </h3>
+              <p className="text-gray-300 text-sm">
+                Sub-millisecond response times with edge computing
+              </p>
+            </div>
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-blue-400/20 rounded-lg p-6 hover:border-blue-400/40 transition-all duration-300">
+              <Shield className="text-blue-400 w-8 h-8 mb-3" />
+              <h3 className="text-xl font-bold text-white mb-2">
+                Military Grade
+              </h3>
+              <p className="text-gray-300 text-sm">
+                Zero-trust security with quantum encryption
+              </p>
+            </div>
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-purple-400/20 rounded-lg p-6 hover:border-purple-400/40 transition-all duration-300">
+              <Database className="text-purple-400 w-8 h-8 mb-3" />
+              <h3 className="text-xl font-bold text-white mb-2">
+                Infinite Scale
+              </h3>
+              <p className="text-gray-300 text-sm">
+                Auto-scaling from zero to billions of requests
+              </p>
+            </div>
           </div>
 
-          {/* Floating Particles */}
-          {[...Array(20)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 bg-cyan-400/30 rounded-full animate-ping"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${2 + Math.random() * 3}s`,
-              }}
-            />
-          ))}
+          {/* CTA Buttons - More Technical */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-12">
+            <button className="group relative px-10 py-5 bg-gradient-to-r from-green-600 to-cyan-600 rounded-lg text-black font-black text-xl shadow-2xl hover:shadow-green-500/30 transition-all duration-300 hover:scale-105 border-2 border-green-400/50">
+              <span className="relative z-10 flex items-center">
+                <Terminal className="mr-3 w-6 h-6" />
+                DEPLOY NOW
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-green-700 to-cyan-700 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
 
-          {/* Technology Cards Flow */}
-          <div className="relative w-full h-full flex items-center justify-center">
-            {getVisibleTechs().map((tech) => {
-              const scale =
-                tech.offset === 0 ? 1.2 : 1 - Math.abs(tech.offset) * 0.15;
-              const opacity =
-                tech.offset === 0 ? 1 : 1 - Math.abs(tech.offset) * 0.3;
-              const translateX = tech.offset * 200;
-              const translateY = Math.abs(tech.offset) * 20;
-              const blur = Math.abs(tech.offset) * 2;
-
-              return (
-                <div
-                  key={tech.key}
-                  className={`absolute transition-all duration-700 ease-out ${
-                    isAnimating ? "duration-300" : ""
-                  }`}
-                  style={{
-                    transform: `translateX(${translateX}px) translateY(${translateY}px) scale(${scale})`,
-                    opacity,
-                    filter: `blur(${blur}px)`,
-                    zIndex: tech.offset === 0 ? 10 : 5 - Math.abs(tech.offset),
-                  }}
-                >
-                  <div
-                    className={`
-                      relative p-8 rounded-3xl backdrop-blur-xl border border-gray-700/50
-                      ${
-                        tech.offset === 0
-                          ? "bg-gray-800/80 shadow-2xl"
-                          : "bg-gray-900/60"
-                      }
-                      hover:bg-gray-700/70 transition-all duration-300
-                      min-w-[200px] text-center
-                    `}
-                    style={{
-                      boxShadow:
-                        tech.offset === 0
-                          ? `0 20px 40px ${tech.color}30, 0 0 60px ${tech.color}20, inset 0 1px 0 rgba(255,255,255,0.1)`
-                          : "inset 0 1px 0 rgba(255,255,255,0.05)",
-                    }}
-                  >
-                    {/* Icon */}
-                    <div
-                      className="text-6xl mb-4 filter drop-shadow-lg"
-                      style={{
-                        color: tech.offset === 0 ? tech.color : "#64748b",
-                        textShadow:
-                          tech.offset === 0 ? `0 0 20px ${tech.color}` : "none",
-                      }}
-                    >
-                      {tech.icon}
-                    </div>
-
-                    {/* Tech Name */}
-                    <h3
-                      className={`
-                        font-bold text-xl mb-2 transition-all duration-300
-                        ${tech.offset === 0 ? "text-white" : "text-gray-400"}
-                      `}
-                      style={{
-                        textShadow:
-                          tech.offset === 0
-                            ? `0 0 10px ${tech.color}50`
-                            : "none",
-                      }}
-                    >
-                      {tech.name}
-                    </h3>
-
-                    {/* Animated Border */}
-                    {tech.offset === 0 && (
-                      <div
-                        className="absolute inset-0 rounded-3xl opacity-60 animate-pulse"
-                        style={{
-                          background: `linear-gradient(45deg, ${tech.color}20, transparent, ${tech.color}20)`,
-                          animation: "borderRotate 3s linear infinite",
-                        }}
-                      />
-                    )}
-
-                    {/* Glow Effect */}
-                    {tech.offset === 0 && (
-                      <div
-                        className="absolute inset-0 rounded-3xl blur-xl opacity-30 -z-10"
-                        style={{ backgroundColor: tech.color }}
-                      />
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+            <button className="px-10 py-5 border-2 border-cyan-400/50 rounded-lg text-cyan-300 font-bold text-xl backdrop-blur-sm hover:bg-cyan-400/10 hover:border-cyan-300 transition-all duration-300 hover:scale-105 flex items-center">
+              <Code className="mr-3 w-6 h-6" />
+              VIEW DOCS
+            </button>
           </div>
 
-          {/* Center Highlight Ring */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div
-              className="w-80 h-80 border-2 border-gray-700/30 rounded-full animate-spin opacity-40"
-              style={{ animationDuration: "20s" }}
-            />
-            <div
-              className="absolute w-60 h-60 border border-cyan-500/20 rounded-full animate-spin"
-              style={{
-                animationDuration: "15s",
-                animationDirection: "reverse",
-              }}
-            />
+          {/* Technical Stats */}
+          <div className="grid grid-cols-4 gap-6 pt-20 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-black text-green-400 mb-2 font-mono">
+                99.99%
+              </div>
+              <div className="text-xs text-gray-400 uppercase tracking-wide">
+                Uptime SLA
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-black text-cyan-400 mb-2 font-mono">
+                &lt;1ms
+              </div>
+              <div className="text-xs text-gray-400 uppercase tracking-wide">
+                Latency
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-black text-blue-400 mb-2 font-mono">
+                10M+
+              </div>
+              <div className="text-xs text-gray-400 uppercase tracking-wide">
+                Requests/sec
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-black text-purple-400 mb-2 font-mono">
+                0
+              </div>
+              <div className="text-xs text-gray-400 uppercase tracking-wide">
+                Downtime
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Navigation Dots */}
-        <div className="flex justify-center mt-16 space-x-3">
-          {technologies.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`
-                w-3 h-3 rounded-full transition-all duration-300
-                ${
-                  index === currentIndex
-                    ? "bg-cyan-500 shadow-lg shadow-cyan-500/50 scale-125"
-                    : "bg-gray-600 hover:bg-gray-500"
-                }
-              `}
-            />
-          ))}
-        </div>
-
-        {/* Additional Info */}
-        <div className="text-center mt-12">
-          <p className="text-gray-500 text-lg">
-            <span className="text-cyan-400 font-semibold">
-              {technologies.length}+ Technologies
-            </span>{" "}
-            and many more in our arsenal
-          </p>
+        {/* Enhanced Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="flex flex-col items-center">
+            <ChevronDown className="text-green-400 w-8 h-8 mb-1" />
+            <span className="text-xs text-gray-500 font-mono">SCROLL_DOWN</span>
+          </div>
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes borderRotate {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          33% {
-            transform: translateY(-10px) rotate(1deg);
-          }
-          66% {
-            transform: translateY(5px) rotate(-1deg);
-          }
-        }
-      `}</style>
+      {/* Technical Matrix-style Particles */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        {[...Array(40)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-green-400 text-xs font-mono opacity-30 animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${1 + Math.random() * 4}s`,
+            }}
+          >
+            {Math.random() > 0.5 ? "1" : "0"}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default TechnologiesSection;
+export default HeroSection;
